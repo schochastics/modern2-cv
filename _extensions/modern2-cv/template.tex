@@ -40,7 +40,7 @@
 \usepackage[utf8]{inputenc}		
 \usepackage[USenglish]{isodate}
 \usepackage{fancyhdr}
-\usepackage[numbers]{natbib}
+% \usepackage[numbers]{natbib}
 
 %----------------------------------------------------------------------------------------
 %	LOGIC
@@ -167,6 +167,50 @@
 \usepackage{ragged2e}	
 \usetikzlibrary{shapes, backgrounds,mindmap, trees}
 
+%----------------------------------------------------------------------------------------
+%	Bibliography
+%---------------------------------------------------------------------------------------- 
+$if(csl-refs)$
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+$endif$
+
+$if(biblio-config)$
+$if(natbib)$
+\usepackage[$natbiboptions$]{natbib}
+\bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
+$endif$
+$if(biblatex)$
+\usepackage[$if(biblio-style)$style=$biblio-style$,$endif$$for(biblatexoptions)$$biblatexoptions$$sep$,$endfor$]{biblatex}
+$for(bibliography)$
+\addbibresource{$bibliography$}
+$endfor$
+$endif$
+$endif$
+$if(nocite-ids)$
+\nocite{$for(nocite-ids)$$it$$sep$, $endfor$}
+$endif$
 %----------------------------------------------------------------------------------------
 %	Color DEFINITIONS
 %---------------------------------------------------------------------------------------- 
@@ -307,7 +351,7 @@
 % param 5: work done (optional)
 % param 6: technologies include (optional)
 % param 7: achievements (optional)
-\newcommand{\cvevent}[7] {
+\newcommand{\cvevent}[4] {
 	
 	% we wrap this part in a parbox, so title and description are not separated on a pagebreak
 	% if you need more control on page breaks, remove the parbox
@@ -324,6 +368,19 @@
 	\vspace{14pt}
 }
 
+\newcommand{\cvproj}[3] {
+	\parbox{\mpwidth}{
+		\begin{tabular*}{1\mpwidth}{p{0.66\mpwidth}  r}
+	 		\textcolor{black}{\textbf{#1}} & \\
+			\textcolor{maincol}{#2} & \\
+		\end{tabular*}\\[4pt]
+	
+		\ifthenelse{\isempty{#3}}{}{
+			\cvtext{#3}\\
+		}
+	}
+	\vspace{14pt}
+}
 
 %----------------------------------------------------------------------------------------
 %	 CV META EVENT
@@ -442,13 +499,15 @@
 
 		$for(sidebar.sections.items)$
 		$if(sidebar.sections.items.exp)$
-		\cvskill{$sidebar.sections.items.text$}{$sidebar.sections.items.exp.text$}{$sidebar.sections.items.exp.num$} \\[6pt]
+		\cvskill{$sidebar.sections.items.text$}{$sidebar.sections.items.exp.text$}{$sidebar.sections.items.exp.num$} \\[10pt]
 		$elseif(sidebar.sections.items.inst)$
 		\cvmetaevent{$sidebar.sections.items.time$}{$sidebar.sections.items.text$}{$sidebar.sections.items.inst$}{$sidebar.sections.items.details$}
 		$elseif(sidebar.sections.items.href)$
 		\iconhref{$sidebar.sections.items.icon$}{16}{$sidebar.sections.items.text$}{$sidebar.sections.items.href$}\\[6pt]
 		$elseif(sidebar.sections.items.icon)$
 		\icontext{$sidebar.sections.items.icon$}{16}{$sidebar.sections.items.text$}\\[6pt]
+		$else$
+		\icontext{caret-right}{12}{$it$}\\[6pt]
 		$endif$
 		$endfor$
 		$endfor$
@@ -457,176 +516,8 @@
 
 	\begin{rightcolumn}
 		$body$
+		$biblio.tex()$
 	\end{rightcolumn}
-
-
-	% 	%
-	% 	%\cvsection{Projekte}
-
-	% 	%	\cvlist{
-	% 	%		\item \hyperlink{https://github.com/philipempl/ether-twin}{\textbf{Ether-Twin.}}\\ Ethereum Applikation für Digital Twins.
-	% 	%		\item \hyperlink{https://github.com/philipempl/Peter-Pan}{\textbf{Peter Pan.}}\\ Koch-App (t.b.a.).
-	% 	%		\item \hyperlink{https://github.com/philipempl/Innovation-Tool}{\textbf{Innovation Tool.}}\\ Webcrawler für \hyperlink{https://ibi.de/}{Ibi}.
-	% 	%		\item \hyperlink{https://github.com/philipempl/cozone}{\textbf{COZONE.}} \\ Soziales Netzwerk (t.b.a.).
-	% 	%		\item \hyperlink{https://github.com/geritwagner/enlit}{\textbf{ENLIT.}}\\ Exploring new Literature (Bachelorarbeit).
-	% 	%		\item \textbf{Crowdfunding.} \\Modul mit \hyperlink{https://senacor.com/}{Senacor} für \hyperlink{https://www.paydirekt.de/}{paydirekt}.
-	% 	%		}
-
-	% 	\cvsection{Interests}
-
-	% 	\icontext{CaretRight}{12}{Guitarist}{black}\\[6pt]
-	% 	\icontext{CaretRight}{12}{DIY}{black}\\[6pt]
-	% 	\icontext{CaretRight}{12}{Fitness}{black}\\[6pt]
-	% 	\icontext{CaretRight}{12}{Cooking}{black}\\[6pt]
-	% 	\icontext{CaretRight}{12}{Travel}{black}\\[6pt]
-
-
-
-	% 	%\cvqrcode{0.3}
-
-	% \end{leftcolumn}
-	% \begin{rightcolumn}
-	% 	%---------------------------------------------------------------------------------------
-	% 	%	TITLE  HEADER
-	% 	%----------------------------------------------------------------------------------------
-
-
-	% 	%---------------------------------------------------------------------------------------
-	% 	%	PROFILE
-	% 	%----------------------------------------------------------------------------------------
-	% 	\cvsection{Biography}
-	% 	\vspace{4pt}
-
-	% 	\cvtext{\Blindtext[1]
-
-
-
-
-	% 	}
-
-
-	% 	%---------------------------------------------------------------------------------------
-	% 	%	WORK EXPERIENCE
-	% 	%----------------------------------------------------------------------------------------
-
-	% 	\vspace{10pt}
-	% 	\cvsection{Work experience}
-	% 	\vspace{4pt}
-
-
-	% 	\cvevent
-	% 	{XX/XXXX - today}
-	% 	{Research assistant | PhD student}
-	% 	{Department of Lipsum (Prof. Name)\newline University of Lipsum}
-	% 	{Here you can describe your work content and go into detail about individual parts of this job. Possibly an enumeration by means of "," is useful. Otherwise, describe the essential content of this item in 1-2 sentences.}
-	% 	\vfill\null
-
-
-	% 	\cvevent
-	% 	{XX/XXXX - XX/XXXX}
-	% 	{Part-time research assistant}
-	% 	{Department of Lipsum (Prof. Name)\newline University of Lipsum}
-	% 	{Here you can describe your work content and go into detail about individual parts of this job. Possibly an enumeration by means of "," is useful. Otherwise, describe the essential content of this item in 1-2 sentences.}
-	% 	\vfill\null
-
-
-
-	% 	\cvevent
-	% 	{XX/XXXX - XX/XXXX}
-	% 	{Trainer - Course name}
-	% 	{Department of Lipsum (Prof. Name)\newline University of Lipsum}
-	% 	{Here you can describe your work content and go into detail about individual parts of this job. Possibly an enumeration by means of "," is useful. Otherwise, describe the essential content of this item in 1-2 sentences.}
-	% 	\vfill\null
-
-
-
-	% 	\cvevent
-	% 	{XX/XXXX - XX/XXXX}
-	% 	{Trainer - Course name}
-	% 	{Department of Lipsum (Prof. Name)\newline University of Lipsum}
-	% 	{Here you can describe your work content and go into detail about individual parts of this job. Possibly an enumeration by means of ","  is useful. Otherwise, describe the essential content of this item in 1-2 sentences.}
-	% 	\vfill\null
-	% 	\vfill\null
-
-
-
-	% 	\cvevent
-	% 	{XX/XXXX - XX/XXXX}
-	% 	{Trainer - Course name}
-	% 	{Department of Lipsum (Prof. Name)\newline University of Lipsum}
-	% 	{Here you can describe your work content and go into detail about individual parts of this job. Possibly an enumeration by means of "," is useful. Otherwise, describe the essential content of this item in 1-2 sentences.}
-	% 	\vfill\null
-
-
-	% 	\cvevent
-	% 	{XX/XXXX - XX/XXXX}
-	% 	{Part-time research assistant}
-	% 	{Department of Lipsum (Prof. Name)\newline University of Lipsum}
-	% 	{Here you can describe your work content and go into detail about individual parts of this job. Possibly an enumeration by means of "," is useful. Otherwise, describe the essential content of this item in 1-2 sentences.}
-	% 	\vfill\null
-
-
-
-	% 	\cvevent
-	% 	{XX/XXXX - XX/XXXX}
-	% 	{Internship}
-	% 	{Department \newline Company name (Location)}
-	% 	{Here you can describe your work content and go into detail about individual parts of this job. Possibly an enumeration by means of "," is useful. Otherwise, describe the essential content of this item in 1-2 sentences.}
-	% 	\vfill\null
-
-	% 	\cvevent
-	% 	{XX/XXXX - XX/XXXX}
-	% 	{Student assistant}
-	% 	{Department of Lipsum (Prof. Name)\newline University of Lipsum}
-	% 	{Here you can describe your work content and go into detail about individual parts of this job. Possibly an enumeration by means of "," is useful. Otherwise, describe the essential content of this item in 1-2 sentences.}
-	% 	\vfill\null
-
-
-	% 	\cvevent
-	% 	{XX/XXXX - XX/XXXX}
-	% 	{Trainer - Course name}
-	% 	{Department of Lipsum (Prof. Name)\newline University of Lipsum}
-	% 	{Here you can describe your work content and go into detail about individual parts of this job. Possibly an enumeration by means of "," is useful. Otherwise, describe the essential content of this item in 1-2 sentences.}
-	% 	\vfill\null
-
-
-
-	% 	\cvevent
-	% 	{XX/XXXX - XX/XXXX}
-	% 	{Working student}
-	% 	{Department \newline Company name (Location)}
-	% 	{Here you can describe your work content and go into detail about individual parts of this job. Possibly an enumeration by means of "," is useful. Otherwise, describe the essential content of this item in 1-2 sentences.}
-	% 	\vfill\null
-
-
-	% 	\cvsection{Publications}
-
-	% 	\begin{itemize}[leftmargin=*]
-	% 		\item Author, G. \& Author, P. \&  Author G. (2020). "This is the title of the publication". In: \textit{Proceedings of the 28th Conference on Lipsum (LIPSUM)}, Lipsum, June 12-17, 2020.
-	% 		\item Author, G. \& Author, P. \&  Author G. (2020). "This is the title of the publication". In: \textit{Proceedings of the 28th Conference on Lipsum (LIPSUM)}, Lipsum, June 12-17, 2020.
-	% 		\item Author, G. \& Author, P. \&  Author G. (2020). "This is the title of the publication". In: \textit{Proceedings of the 28th Conference on Lipsum (LIPSUM)}, Lipsum, June 12-17, 2020.
-	% 	\end{itemize}
-	% 	% hofixes to create fake-space to ensure the whole height is used
-	% 	\mbox{}
-	% 	\vfill
-	% 	\mbox{}
-	% 	\vfill
-	% 	\mbox{}
-	% 	\vfill
-	% 	\mbox{}
-	% 	\vfill
-	% 	\mbox{}
-	% 	\vfill
-	% 	\mbox{}
-	% 	\vfill
-	% 	\mbox{}
-
-
-	% 	Lorem, \today     \hspace{1cm}   \hrulefill
-
-	% 	\hspace*{30mm}\phantom{Lorem, \today }Philip Empl
-
-	% \end{rightcolumn}
 \end{paracol}
 
 

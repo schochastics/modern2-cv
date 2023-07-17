@@ -29,6 +29,18 @@ sidebar:
           exp: 
             text: "4 yrs."
             num: 0.4
+        - text: Lua
+          exp: 
+            text: "1 yr."
+            num: 0.1
+        - text: Rmarkdown
+          exp: 
+            text: "6 yrs."
+            num: 0.6
+        - text: Quarto
+          exp: 
+            text: "1 yr."
+            num: 0.1
         - text: Data Analysis
           exp: 
             text: "9 years"
@@ -41,6 +53,12 @@ sidebar:
           exp: 
             text: "8 years"
             num: 0.8
+    - name: Tools
+      items:
+        - Git
+        - RStudio
+        - VS Code
+        - Terminal 
     - name: Education
       items:
         - text: "Ph.D. Computer Science"
@@ -67,7 +85,83 @@ sidebar:
           href: https://github.com/schochastics
         - icon: twitter
           text: schochastics
-          href: https://twitter.com/schochastics                                                
+          href: https://twitter.com/schochastics    
+execute: 
+  echo: false
 ---
 
-# test
+```{r}
+#| label: cvevents
+cvevents <- function(tbl, when, what, where, descr) {
+
+    command_start <- "\\cvevent"
+    tbl[[where]] <- gsub("\n", " \\\\newline ", tbl[[where]])
+    res <- paste0(
+        command_start, "{", tbl[[when]], "}", 
+        "{", tbl[[what]], "}",
+        "{", tbl[[where]], "}",
+        "{", tbl[[descr]], "}"
+        )
+
+    cat(res, sep = "\n\n\n")
+}
+
+cvproj <- function(tbl,what,role,items){
+    command_start <- "\\cvproj"
+    res <- paste0(
+        command_start, "{", tbl[[what]], "}",
+        "{", tbl[[role]], "}",
+        "{", sapply(tbl[[items]], function(x)paste0(x,collapse = ", ")), "}"
+    )
+
+    cat(res, sep = "\n\n\n")
+}
+```
+
+# Summary
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+# Experience
+
+```{r}
+#| label: experience
+#| output: asis
+tibble::tribble(
+    ~role, ~institution, ~dates, ~details,
+    "Team Lead for Transparent Social Analytics", "Department of Computational Social Science\nGESIS - Leibniz Institute for the Social Sciences", "03/2022 - Present", "I am coordinating a project to build an Open Science platform with reusable code and tutorials to analyze digital behaviour data. I am also doing research on Open Science practices and I implement tools to enhance reproducibility and make methods accessible in R",
+    "Presidential Fellow", "Sociology Department\nUniversity of Manchester", "09/2018 - 02/2022",
+    "I did research on Disinformation on Social Media which involved the analysis of large scale and unstructured data sets with R and Bash",
+    "Post Doctoral Researcher", "Chair of Social Networks\nETH Zurich", "11/2017 - 08/2018", "I developed new methods to analyze social networks and I gathered and analyzed large datsets from Social Media APIs",
+    "Post Doctoral Researcher", "Department of Computer \\& Information Science\nUniversity of Konstanz", "10/2015 - 10/2017", "I developed new methods to analyze social networks and scraped, harmonized, and analyzed a large corpus of football data",
+    "Ph.D. Candidate", "Department of Computer \\& Information Science\nUniversity of Konstanz", "11/2012 - 09/2015", "I developed new methods to analyze social networks and implemented these methods in R packages using R and C++"
+) |>
+    cvevents(when = "dates", what = "role", where = "institution", descr = "details")
+```
+
+# Projects
+
+See my [github profile](https://github.com/schochastics) for a comprehensive list of open source projects.
+
+```{r}
+#| label: proj
+#| output: asis
+tibble::tribble(
+    ~what, ~role, ~items,
+    "R packages", "Creator and Maintainer", c("edgebundle", "graphlayouts", "levelnet", "netrankr", "netUtils", "networkdata", "PSAWR", "roughnet", "roughsf", "rtoot", "Rtumblr", "signnet", "snahelper", "webbotparseR", "webtrackR"),
+    "R packages", "Contributor", c("backbone", "ggraph", "multigraphr", "netropy", "rang", "rgraph6"),
+    "Quarto extensions", "Creator and Maintainer",
+    c("Academicons (shortcodes)", "Blackboard (revealjs theme)", "sketchy (html theme)", "share buttons (filter)", "nutshell (filter)", "quartocities (website template)", "quartocv (cv templates)"),
+    "soccerverse.com (football analytics website)", "Creator and Maintainer",
+    c(
+        "Manual and automated gathering of football results around the world",
+        "Harmonizing data (e.g. club names and managers)",
+        "Implementation of ranking algorithms",
+        "Predicting of league tables and matchforecasting",
+        "Uses R, JavaScript, HTML, and CSS",
+        "around 1000 visitors/month"
+    )
+) |>
+    cvproj(what = "what", role = "role", items = "items")
+
+```
