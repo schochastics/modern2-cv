@@ -1,0 +1,73 @@
+---
+title: Untitled
+format:
+  modern2-cv-pdf: default
+author: David Schoch
+cvfont: raleway #texlive fonts like raleway,fetamont,gillius,comfortaa
+cvcolor: 
+  main: B83B5E
+  accent: 6A2C70
+jobtitle: Team Lead "Transparent Social Analytics"
+sidebar:
+  image: portrait.jpg
+  bullets:
+    - Konstanz, Germany
+    - german
+    - married
+  sections: 
+    - name: Skills
+      items:
+        - text: R
+          exp: 
+            text: "10+ yrs."
+            num: 1
+        - text: Python
+          exp: 
+            text: "2 yrs."
+            num: 0.2
+        - text: JavaScript
+          exp: 
+            text: "4 yrs."
+            num: 0.4
+        - text: Data Analysis
+          exp: 
+            text: "9 years"
+            num: 0.9
+        - text: Web Scraping
+          exp: 
+            text: "8 yrs."
+            num: 0.8
+        - text: Web Development
+          exp: 
+            text: "8 years"
+            num: 0.8
+    - name: Education
+      items:
+        - text: "Ph.D. Computer Science"
+          inst: "University of Konstanz"
+          time: "09/2012 - 11/2015"
+          details: "Thesis: Positional Approach for Network Centrality"
+        - text: "Businessmathematics (Dipl.)"
+          inst: "Karlsruhe Institute of Technology"
+          time: "10/2006 - 07/2012"
+          details: "Thesis: Modularity Maximization"
+    - name: Contact
+      items:
+        - icon: map-marker
+          text: Konstanz, Germany
+        - icon: phone
+          text: "+XX XXXX XXXX"
+        - icon: envelope
+          text: david@schochastics.net
+        - icon: home
+          text: mr.schochastics.net
+          href: https://mr.schochastics.net
+        - icon: github
+          text: schochastics
+          href: https://github.com/schochastics
+        - icon: twitter
+          text: schochastics
+          href: https://twitter.com/schochastics                                                
+---
+
+# test
