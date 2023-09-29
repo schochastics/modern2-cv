@@ -1,0 +1,46 @@
+---
+format:
+  modern2-cover-letter-pdf: default
+author: David Schoch
+date: today
+date-format: long
+
+cvfont: raleway #texlive fonts like raleway,fetamont,gillius,comfortaa
+cvcolor: 
+  main: B83B5E
+  accent: 6A2C70
+  
+title: Motivation letter
+sub-title: 'Application as Team Lead "Transparent Social Analytics"'
+
+contact:
+  street: First Street 1
+  zip: 1234
+  city: Some City
+  phone: +1 2345 6789
+  mail: some.mail@mailbox.com
+  
+organization: 
+  contact-person: Big Boss
+  name: Important Corporation
+  street: Second Street 2
+  zip: 1234 
+  city: Some City
+    
+---
+
+Dear big boss,
+
+This is my first paragraph.
+I'm super interested in the job.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+At vero eos et accusam et justo duo dolores et ea rebum.
+Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+At vero eos et accusam et justo duo dolores et ea rebum.
+Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+Kind regards,
+
+David

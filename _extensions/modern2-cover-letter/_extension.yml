@@ -1,0 +1,14 @@
+title: modern2-cover-letter
+author: schochastics
+version: 1.0.0
+quarto-required: ">=1.3.0"
+contributes:
+  formats:
+    pdf:
+      filters:
+        - styles.lua
+        - para.lua
+      template-partials:
+        - partials/biblio.tex
+      template: cover-letter-template.tex
+
