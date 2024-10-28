@@ -480,7 +480,9 @@ $endif$
 		%---------------------------------------------------------------------------------------
 		%	META IMAGE
 		%----------------------------------------------------------------------------------------
-		\includegraphics[width=\linewidth]{$sidebar.image$}
+        $if(sidebar.image)$
+        \includegraphics[width=\linewidth]{$sidebar.image$}
+        $endif$
 		\fcolorbox{white}{white}{\begin{minipage}[c][1.5cm][c]{1\mpwidth}
 				\LARGE{\textbf{\textcolor{maincol}{$author$}}} \\[2pt]
 				\normalsize{ \textcolor{maincol} {$jobtitle$} }
